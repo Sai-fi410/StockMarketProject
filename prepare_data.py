@@ -11,7 +11,6 @@ for date in returns.index[window:]:
     corr = subset.corr()
     rolling_corr[date] = corr
 
-# Save
 import pickle
 with open("data/rolling_corr.pkl", "wb") as f:
     pickle.dump(rolling_corr, f)
