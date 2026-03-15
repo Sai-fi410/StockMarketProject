@@ -159,17 +159,6 @@ StockMarketProject/
     └── correlation_matrix.csv   # Static correlation reference
 <<<<<<< HEAD
 
-Running Locally
-bashgit clone https://github.com/Sai-fi410/StockMarketProject.git
-cd StockMarketProject
-pip install -r requirements.txt
-streamlit run app.py
-
-Key Insight
-
-Markets do not fail because of price. They fail because of structure. When the network tightens and centrality concentrates, the system becomes brittle. MSI makes that brittleness visible — before it becomes a crisis.
-=======
-```
 
 ---
 
