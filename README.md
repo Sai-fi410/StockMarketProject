@@ -1,4 +1,4 @@
-Market Structure Intelligence (MSI)
+##Market Structure Intelligence (MSI)
 
 <<<<<<< HEAD
 A temporal structural map of global market dependency — built with graph theory, rolling correlations, and network science.
