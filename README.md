@@ -157,8 +157,6 @@ StockMarketProject/
     ├── daily_returns.csv        # Time-indexed daily return series
     ├── rolling_corr.pkl         # Precomputed rolling correlation matrices
     └── correlation_matrix.csv   # Static correlation reference
-<<<<<<< HEAD
-
 
 ---
 
