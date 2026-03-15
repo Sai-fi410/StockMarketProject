@@ -175,4 +175,3 @@ streamlit run app.py
 ## Key Insight
 
 > Markets do not fail because of price. They fail because of structure. When the network tightens and centrality concentrates, the system becomes brittle. MSI makes that brittleness visible — before it becomes a crisis.
->>>>>>> 3e0f506 (Update README)
