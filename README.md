@@ -1,27 +1,6 @@
 ## Market Structure Intelligence (MSI)
 
-<<<<<<< HEAD
-A temporal structural map of global market dependency — built with graph theory, rolling correlations, and network science.
 
-Live Demo → Open Dashboard
-
-What This Is
-Most financial dashboards show you prices. This one shows you structure.
-MSI answers a different set of questions:
-
-Which assets are structurally central to the global market right now?
-How tightly are markets clustering together?
-Is systemic risk building up or dispersing?
-If one asset collapses, which others are most exposed?
-
-This is not a price tracker. It is a structural intelligence system — a tool that maps the hidden skeleton of market interdependency at any point in time between 2020 and 2025.
-
-The Concept
-Why Structure Matters
-When markets are calm, assets move independently. When stress builds, they start moving together — correlations rise, the network tightens, and diversification breaks down. The moment this happens, a shock to one asset can propagate to all others.
-This phenomenon — called contagion — is invisible on a price chart. It only becomes visible when you model the market as a network.
-MSI tracks this structural change over time, date by date, so you can watch contagion risk build and dissolve in real time.
-=======
 > A temporal structural map of global market dependency — built with graph theory, rolling correlations, and network science.
 
 **Live Demo → [Open Dashboard](https://stockmarketproject-dstdrf4h7jqflsc2tsjaku.streamlit.app/)**
