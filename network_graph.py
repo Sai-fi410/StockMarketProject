@@ -2,24 +2,24 @@ import pandas as pd
 import networkx as nx
 import matplotlib.pyplot as plt
 
-# Load Correlation Matrix
+# Loading Correlation Matrix
 
 corr = pd.read_csv("data/correlation_matrix.csv", index_col=0)
 
-# Create Graph
+# Creating Graph
 
 G = nx.Graph()
 
-# Add nodes
+# To add nodes
 for stock in corr.columns:
     G.add_node(stock)
 
 import numpy as np
 
-# Convert correlation to distance
+# Converting correlation to distance
 distance_matrix = np.sqrt(2 * (1 - corr))
 
-# Create weighted graph from distance matrix
+# Creating weighted graph from distance matrix
 G_full = nx.Graph()
 
 for i in range(len(distance_matrix.columns)):
@@ -29,19 +29,19 @@ for i in range(len(distance_matrix.columns)):
         weight = distance_matrix.iloc[i, j]
         G_full.add_edge(stock1, stock2, weight=weight)
 
-# Build Minimum Spanning Tree
+# Building Minimum Spanning Tree
 G = nx.minimum_spanning_tree(G_full, weight='weight')
 
 from networkx.algorithms import community
 
-# Detect Communities
+# Detecting Communities
 communities = community.greedy_modularity_communities(G, weight='weight')
 
 print("\nDetected Communities:")
 for i, comm in enumerate(communities):
     print(f"Community {i+1}: {list(comm)}")
 
-# Assign community index to each node
+# Assigning community index to each node
 community_map = {}
 for i, comm in enumerate(communities):
     for node in comm:
@@ -65,7 +65,7 @@ print("\nEigenvector Centrality:")
 for stock, value in sorted(eigen_centrality.items(), key=lambda x: x[1], reverse=True):
     print(stock, round(value, 3))
 
-# Select top 10 influential stocks
+# Selecting top 10 influential stocks
 top_nodes = sorted(eigen_centrality, key=eigen_centrality.get, reverse=True)[:10]
 
 labels = {}
