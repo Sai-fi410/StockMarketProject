@@ -188,8 +188,11 @@ ticker_flags = {
 }
 latest_returns.index = [f"{ticker_flags.get(t, '')} {t}" for t in latest_returns.index]
 st.sidebar.markdown('<div style="font-family:Orbitron,monospace;font-size:7px;letter-spacing:0.18em;color:#4a7a8a;text-transform:uppercase;margin-top:10px;margin-bottom:6px;">Global Ranking</div>', unsafe_allow_html=True)
+def color_returns(val):
+    color = '#00ff88' if val > 0 else '#ff3a3a'
+    return f'color: {color}'
 st.sidebar.dataframe(
-    latest_returns.rename("Return").to_frame().style.format("{:.4f}").bar(color=["#ff3a3a", "#00ff88"], align="zero"),
+    latest_returns.rename("Return").to_frame().style.format("{:.4f}").applymap(color_returns),
     use_container_width=True, height=320
 )
 
