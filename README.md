@@ -145,7 +145,8 @@ Tech Stack
 
 ---
 
-Project Structure
+## Project Structure
+```bash
 StockMarketProject/
 ├── app.py                  # Main Streamlit dashboard
 ├── data_fetch.py           # Data download pipeline
@@ -157,7 +158,7 @@ StockMarketProject/
     ├── daily_returns.csv        # Time-indexed daily return series
     ├── rolling_corr.pkl         # Precomputed rolling correlation matrices
     └── correlation_matrix.csv   # Static correlation reference
-
+```
 ---
 
 ## Running Locally
