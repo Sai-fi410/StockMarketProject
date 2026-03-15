@@ -3,7 +3,6 @@ import pandas as pd
 import numpy as np
 
 #Configuration 
-
 TICKERS = [
     "AAPL", "MSFT", "NVDA", "AMZN", "META", "TSLA", "JPM",
     "BABA", "TCEHY", "JD",
@@ -18,7 +17,6 @@ END_DATE = "2025-12-31"
 INTERVAL = "1d"
 
 # Data Download
-
 print("Downloading data...")
 
 data = yf.download(
@@ -30,11 +28,9 @@ data = yf.download(
     auto_adjust=False,
     threads=True
 )
-
 print("Download complete.")
 
 # Data Cleaning
-
 if not data.empty:
     data = data.dropna(how="all")
     data = data.ffill()
@@ -42,7 +38,6 @@ else:
     print("Warning: Download returned empty dataset.")
 
 # Save to CSV
-
 output_path = "data/global_top20_2020_2025.csv"
 data.to_csv(output_path)
 
