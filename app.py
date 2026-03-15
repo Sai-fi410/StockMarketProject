@@ -6,15 +6,15 @@ import numpy as np
 import plotly.graph_objects as go
 import time
 
-# ── PAGE CONFIG ──────────────────────────────────────────────────────────────
+# PAGE CONFIG
 st.set_page_config(layout="wide", page_title="MSI · Market Structure Intelligence")
 
-# ── FONTS ────────────────────────────────────────────────────────────────────
+# FONTS
 st.markdown("""
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Chakra+Petch:wght@400;700&family=Teko:wght@400;600&display=swap" rel="stylesheet">
             """, unsafe_allow_html=True)
 
-# ── GLOBAL CSS ───────────────────────────────────────────────────────────────
+# GLOBAL CSS
 st.html("""<style>
 
 html, body, [data-testid="stAppViewContainer"] {
@@ -154,17 +154,17 @@ div.element-container { margin-bottom: 0 !important; margin-top: 0 !important; }
 #MainMenu, footer { visibility: hidden; }
 </style>""")
 
-# ── SESSION STATE ─────────────────────────────────────────────────────────────
+# SESSION STATE
 if "play" not in st.session_state:
     st.session_state.play = False
 
-# ── LOAD DATA ─────────────────────────────────────────────────────────────────
+# LOAD DATA
 returns = pd.read_csv("data/daily_returns.csv", index_col=0, parse_dates=True)
 with open("data/rolling_corr.pkl", "rb") as f:
     rolling_corr = pickle.load(f)
 dates = list(rolling_corr.keys())
 
-# ── SIDEBAR ───────────────────────────────────────────────────────────────────
+# SIDEBAR
 st.sidebar.title("Market Controls")
 selected_date = st.sidebar.select_slider(
     "Select Date", options=dates,
@@ -193,7 +193,7 @@ st.sidebar.dataframe(
     use_container_width=True, height=320
 )
 
-# ── AUTOPLAY ──────────────────────────────────────────────────────────────────
+# AUTOPLAY
 if st.session_state.play:
     current_index = dates.index(selected_date)
     if current_index < len(dates) - 1:
@@ -203,14 +203,14 @@ if st.session_state.play:
     else:
         st.session_state.play = False
 
-# ── COMPUTE ───────────────────────────────────────────────────────────────────
+# COMPUTE
 corr = rolling_corr[selected_date]
 distance_matrix = np.sqrt(2 * (1 - corr))
 avg_corr = corr.values[np.triu_indices_from(corr.values, 1)].mean()
 volatility = returns.loc[:selected_date].tail(60).std().mean()
 stress_index = avg_corr * volatility
 
-# ── BUILD GRAPH ───────────────────────────────────────────────────────────────
+# BUILD GRAPH
 G_full = nx.Graph()
 for i in range(len(distance_matrix.columns)):
     for j in range(i + 1, len(distance_matrix.columns)):
@@ -221,7 +221,7 @@ G = nx.minimum_spanning_tree(G_full, weight='weight')
 centrality = nx.eigenvector_centrality(G, max_iter=1000)
 pos = nx.kamada_kawai_layout(G)
 
-# ── HEADER ────────────────────────────────────────────────────────────────────
+# HEADER
 date_str = pd.Timestamp(selected_date).strftime("%Y-%m-%d")
 st.markdown(f"""
 <div class="msi-header">
@@ -230,7 +230,7 @@ st.markdown(f"""
     <div class="msi-live"><div class="live-dot"></div>LIVE</div>
 </div>""", unsafe_allow_html=True)
 
-# ── METRICS ───────────────────────────────────────────────────────────────────
+# METRICS
 stress_label = "↑ HIGH TENSION" if stress_index > 0.01 else "↓ Low tension regime"
 corr_label   = "↑ High cohesion" if avg_corr > 0.5 else "↔ Moderate cohesion"
 vol_label    = "↑ Elevated vol"  if volatility > 0.02 else "↓ Compressed vol"
@@ -249,7 +249,7 @@ with m3:
     st.metric("⬡  Average Volatility", round(volatility, 4), delta=vol_label)
     st.markdown('</div>', unsafe_allow_html=True)
 
-# ── NETWORK + INFO PANEL ──────────────────────────────────────────────────────
+# NETWORK + INFO PANEL
 net_col, info_col = st.columns([2.5, 1])
 
 with net_col:
@@ -367,7 +367,7 @@ with info_col:
     st.markdown(cent_html, unsafe_allow_html=True)
 
 
-# ── CHART ─────────────────────────────────────────────────────────────────────
+# CHART
 market_return = returns.mean(axis=1).cumsum()
 current_val = market_return.loc[selected_date] if selected_date in market_return.index else market_return.iloc[-1]
 cumul_pct = f"{current_val * 100:+.1f}%"
